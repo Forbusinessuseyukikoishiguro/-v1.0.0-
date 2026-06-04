@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐰 品質水準カード | うさうさ研修工房</title>
+<style>
+:root{
+  --orange:#f08c3c;
+  --orange-deep:#d96f1e;
+  --orange-soft:#fbd9b8;
+  --cream:#fdf6ec;
+  --cream-card:#fffdf8;
+  --gold:#c9a227;
+  --gold-soft:#f3e6bd;
+  --ink:#4a3b2a;
+  --ink-soft:#8a7a64;
+  --green:#7fa86b;
+  --red:#cf6a5e;
+  --shadow:0 4px 14px rgba(150,110,60,.14);
+  --radius:18px;
+  font-size:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:"Hiragino Maru Gothic ProN","Zen Maru Gothic","BIZ UDGothic","Yu Gothic UI","Meiryo",sans-serif;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(243,230,189,.55) 0 140px, transparent 160px),
+    radial-gradient(circle at 92% 88%, rgba(251,217,184,.5) 0 160px, transparent 180px),
+    var(--cream);
+  color:var(--ink);
+  line-height:1.7;
+  padding:24px 14px 80px;
+}
+.wrap{max-width:860px;margin:0 auto;}
+
+/* ===== ヘッダー ===== */
+header{
+  display:flex;align-items:center;gap:16px;
+  background:linear-gradient(120deg,var(--orange) 0%,var(--orange-deep) 100%);
+  color:#fff;border-radius:var(--radius);
+  padding:20px 22px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+header::after{
+  content:"品質水準";
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  writing-mode:vertical-rl;font-size:1.05rem;letter-spacing:.45em;
+  color:rgba(255,255,255,.35);font-weight:700;
+}
+.rabbit{font-size:2.4rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.15));}
+header h1{font-size:1.25rem;letter-spacing:.04em;}
+header p{font-size:.82rem;opacity:.92;margin-top:2px;}
+.badge{
+  display:inline-block;background:rgba(255,255,255,.22);
+  border-radius:999px;padding:1px 10px;font-size:.72rem;margin-top:4px;
+}
+
+/* ===== タブ ===== */
+.tabs{display:flex;gap:8px;margin:18px 0 14px;flex-wrap:wrap;}
+.tab{
+  flex:1;min-width:140px;border:2px solid var(--orange-soft);
+  background:var(--cream-card);color:var(--ink-soft);
+  border-radius:999px;padding:10px 14px;font-size:.92rem;font-weight:700;
+  cursor:pointer;transition:.2s;font-family:inherit;
+}
+.tab:hover{border-color:var(--orange);}
+.tab.active{
+  background:var(--orange);border-color:var(--orange);color:#fff;
+  box-shadow:0 3px 10px rgba(217,111,30,.35);
+}
+.panel{display:none;animation:fade .25s ease;}
+.panel.show{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* ===== カード共通 ===== */
+.card{
+  background:var(--cream-card);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:20px 20px 22px;margin-bottom:16px;
+  border:1px solid #f2e6d4;
+}
+.card h2{
+  font-size:1.02rem;color:var(--orange-deep);
+  display:flex;align-items:center;gap:8px;margin-bottom:12px;
+  padding-bottom:8px;border-bottom:2px dashed var(--orange-soft);
+}
+.card h2 .num{
+  background:var(--orange);color:#fff;border-radius:50%;
+  width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:.8rem;flex-shrink:0;
+}
+
+/* ===== ガイド(WHY→WHAT→HOW) ===== */
+details.guide{
+  background:var(--gold-soft);border-radius:var(--radius);
+  padding:14px 18px;margin-bottom:16px;border:1px solid #e6d391;
+}
+details.guide summary{
+  cursor:pointer;font-weight:700;color:#8a6d1a;font-size:.95rem;
+  list-style:none;display:flex;align-items:center;gap:8px;
+}
+details.guide summary::before{content:"▸";transition:.2s;}
+details.guide[open] summary::before{transform:rotate(90deg);}
+.guide-step{margin-top:12px;}
+.guide-tag{
+  display:inline-block;background:var(--gold);color:#fff;
+  border-radius:6px;padding:0 8px;font-size:.74rem;font-weight:700;margin-right:6px;
+}
+.guide p{font-size:.88rem;margin-top:4px;}
+.ramen{
+  background:#fff;border-radius:12px;padding:12px 14px;margin-top:10px;
+  border-left:4px solid var(--orange);font-size:.86rem;
+}
+
+/* ===== フォーム ===== */
+label.fl{display:block;font-size:.84rem;font-weight:700;color:var(--ink-soft);margin:12px 0 4px;}
+label.fl .req{color:var(--red);font-size:.74rem;margin-left:4px;}
+input[type=text],textarea,select{
+  width:100%;border:2px solid var(--orange-soft);border-radius:12px;
+  padding:9px 12px;font-size:.95rem;font-family:inherit;color:var(--ink);
+  background:#fff;transition:.2s;
+}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--orange);}
+textarea{resize:vertical;min-height:60px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:560px){.row2{grid-template-columns:1fr;}}
+
+/* 方向トグル */
+.dir{display:flex;gap:8px;flex-wrap:wrap;}
+.dir button{
+  flex:1;min-width:170px;border:2px solid var(--orange-soft);background:#fff;
+  border-radius:12px;padding:9px 10px;font-family:inherit;font-size:.86rem;
+  cursor:pointer;color:var(--ink-soft);font-weight:700;transition:.2s;
+}
+.dir button.on{background:var(--orange-soft);border-color:var(--orange);color:var(--orange-deep);}
+
+/* ===== 水準セレクタ ===== */
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px;}
+@media(max-width:680px){.levels{grid-template-columns:repeat(2,1fr);}}
+.lv{
+  border:2px solid var(--orange-soft);border-radius:14px;background:#fff;
+  padding:12px 10px;cursor:pointer;text-align:center;transition:.18s;position:relative;
+}
+.lv:hover{transform:translateY(-2px);border-color:var(--orange);}
+.lv.on{
+  border-color:var(--orange);background:linear-gradient(180deg,#fff 0%,var(--orange-soft) 130%);
+  box-shadow:0 4px 12px rgba(217,111,30,.25);
+}
+.lv .emoji{font-size:1.6rem;}
+.lv .lname{font-weight:700;font-size:.88rem;color:var(--orange-deep);margin-top:2px;}
+.lv .ldesc{font-size:.72rem;color:var(--ink-soft);margin-top:2px;line-height:1.45;}
+.lv-detail{
+  margin-top:10px;background:var(--cream);border-radius:12px;padding:12px 14px;
+  font-size:.85rem;border:1px dashed var(--orange-soft);display:none;
+}
+.lv-detail.show{display:block;}
+.lv-detail b{color:var(--orange-deep);}
+.lv-detail ul{margin:6px 0 0 1.2em;}
+
+/* ===== 出力 ===== */
+.out{
+  background:#3d3226;color:#fdf3e3;border-radius:var(--radius);
+  padding:18px;font-family:"BIZ UDGothic","MS Gothic",monospace;
+  font-size:.86rem;white-space:pre-wrap;line-height:1.75;
+  max-height:420px;overflow:auto;
+}
+.btnrow{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.btn{
+  border:none;border-radius:999px;padding:11px 22px;font-size:.92rem;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:.2s;
+}
+.btn-main{background:var(--orange);color:#fff;box-shadow:0 3px 10px rgba(217,111,30,.35);}
+.btn-main:hover{background:var(--orange-deep);transform:translateY(-1px);}
+.btn-sub{background:#fff;border:2px solid var(--orange-soft);color:var(--orange-deep);}
+.btn-sub:hover{border-color:var(--orange);}
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--ink);color:#fff;border-radius:999px;padding:9px 22px;
+  font-size:.86rem;opacity:0;transition:.3s;pointer-events:none;z-index:99;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ===== チェックリスト(受け手側) ===== */
+.chk{list-style:none;}
+.chk li{
+  display:flex;gap:10px;align-items:flex-start;background:#fff;
+  border:2px solid var(--orange-soft);border-radius:12px;
+  padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:.2s;
+}
+.chk li.done{background:var(--cream);border-color:var(--green);opacity:.85;}
+.chk li .box{
+  width:22px;height:22px;border:2px solid var(--orange);border-radius:6px;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;color:#fff;background:#fff;margin-top:2px;
+}
+.chk li.done .box{background:var(--green);border-color:var(--green);}
+.chk li .t b{font-size:.9rem;}
+.chk li .t span{display:block;font-size:.76rem;color:var(--ink-soft);}
+.progress{
+  height:10px;background:var(--orange-soft);border-radius:999px;overflow:hidden;margin:6px 0 14px;
+}
+.progress>div{height:100%;background:linear-gradient(90deg,var(--orange),var(--gold));width:0;transition:.35s;border-radius:999px;}
+.pmsg{font-size:.84rem;color:var(--ink-soft);text-align:right;margin-bottom:8px;}
+
+footer{
+  text-align:center;font-size:.76rem;color:var(--ink-soft);margin-top:28px;
+}
+footer .motto{color:var(--gold);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="rabbit">🐰</div>
+  <div>
+    <h1>品質水準カード</h1>
+    <p>仕事を依頼するときは「品質管理の水準」を相手に示す</p>
+    <span class="badge">うさうさ研修工房 v1.0.0 | メイン講師・サブ講師向け</span>
+  </div>
+</header>
+
+<details class="guide">
+  <summary>🐰 はじめに読んでね:なぜ「水準」を示すの?(WHY→WHAT→HOW)</summary>
+  <div class="guide-step">
+    <span class="guide-tag">WHY</span><b>なぜ必要?</b>
+    <p>依頼トラブルの多くは「手抜き」ではなく「期待した品質レベルのズレ」が原因です。依頼側が水準を示さないと、受け手は毎回100点を狙って時間切れになるか、60点で出して差し戻されるか、どちらかの事故が起きます。</p>
+  </div>
+  <div class="guide-step">
+    <span class="guide-tag">WHAT</span><b>何をする?</b>
+    <p>依頼時に「どのレベルで仕上げてほしいか(L1〜L4)」を必ずセットで伝えます。受け手は、水準が示されていなければ確認する。それだけです。</p>
+    <div class="ramen">🍜 <b>うさうさラーメン店でいうと…</b><br>
+    同じ一杯でも「まかない(L1)」「常連さん(L2)」「一見のお客さま(L3)」「取材の食レポ(L4)」では、盛り付けにかける時間が違いますよね。店長が「まかないでいいよ」と言ってくれれば、新人さんは安心して10分で出せます。それを言わないと、まかないに30分かけてランチタイムに間に合わない…という事故が起きるのです。</div>
+  </div>
+  <div class="guide-step">
+    <span class="guide-tag">HOW</span><b>どう使う?</b>
+    <p>依頼する側は「依頼カードをつくる」タブでカードを作成してチャットに貼るだけ。依頼を受けた側は「依頼を受けたら確認」タブのチェックリストで、聞き漏れがないか確認してから着手します。</p>
+  </div>
+  <div class="guide-step">
+    <span class="guide-tag">一行まとめ</span>
+    <p><b>「何を」だけでなく「どのレベルで」を伝えれば、依頼の事故は激減する。</b></p>
+  </div>
+</details>
+
+<div class="tabs">
+  <button class="tab active" data-p="p1">📝 依頼カードをつくる</button>
+  <button class="tab" data-p="p2">✅ 依頼を受けたら確認</button>
+  <button class="tab" data-p="p3">📖 水準早見表</button>
+</div>
+
+<!-- ============ パネル1:依頼カード作成 ============ -->
+<div class="panel show" id="p1">
+  <div class="card">
+    <h2><span class="num">1</span>だれから、だれへ?</h2>
+    <div class="dir" id="dir">
+      <button class="on" data-v="メイン講師 → サブ講師">👩‍🏫 メイン講師 → サブ講師</button>
+      <button data-v="サブ講師 → メイン講師">🙋 サブ講師 → メイン講師</button>
+      <button data-v="講師 → 新人講師">🌱 講師 → 新人講師</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">2</span>依頼内容</h2>
+    <label class="fl">依頼タイトル<span class="req">必須</span></label>
+    <input type="text" id="title" placeholder="例:演習③の解答解説スライドの作成">
+    <label class="fl">具体的な内容・背景(WHY)</label>
+    <textarea id="detail" placeholder="例:明日の午後コマで使用。受講生のつまずきが多かった問3を重点的に。"></textarea>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">3</span>品質管理の水準<span style="font-size:.78rem;color:var(--ink-soft);font-weight:400">(ここがこのツールの心臓部🫀)</span></h2>
+    <div class="levels" id="levels">
+      <div class="lv" data-l="1">
+        <div class="emoji">🍜</div>
+        <div class="lname">L1 まかない</div>
+        <div class="ldesc">方向性が分かればOK<br>ラフ・誤字許容</div>
+      </div>
+      <div class="lv on" data-l="2">
+        <div class="emoji">🍥</div>
+        <div class="lname">L2 常連さん</div>
+        <div class="ldesc">チーム内共有レベル<br>多少のブレは許容</div>
+      </div>
+      <div class="lv" data-l="3">
+        <div class="emoji">🏮</div>
+        <div class="lname">L3 一見さん</div>
+        <div class="ldesc">受講生に出せるレベル<br>誤字ゼロ・体裁統一</div>
+      </div>
+      <div class="lv" data-l="4">
+        <div class="emoji">📺</div>
+        <div class="lname">L4 取材対応</div>
+        <div class="ldesc">顧客・社外提出レベル<br>ダブルチェック必須</div>
+      </div>
+    </div>
+    <div class="lv-detail" id="lvDetail"></div>
+    <label class="fl">OKライン(これができていれば合格)</label>
+    <input type="text" id="okline" placeholder="例:問3の解説に図解が1枚入っていること">
+    <label class="fl">NGライン(これだけは避けてほしい)</label>
+    <input type="text" id="ngline" placeholder="例:模範解答のコードが動作未確認のまま載ること">
+  </div>
+
+  <div class="card">
+    <h2><span class="num">4</span>期限と中間確認</h2>
+    <div class="row2">
+      <div>
+        <label class="fl">最終期限<span class="req">必須</span></label>
+        <input type="text" id="due" placeholder="例:6/5(金) 17:00">
+      </div>
+      <div>
+        <label class="fl">中間確認のタイミング</label>
+        <input type="text" id="mid" placeholder="例:構成案の段階で一度見せてください">
+      </div>
+    </div>
+    <label class="fl">困ったときの相談先・補足</label>
+    <input type="text" id="note" placeholder="例:過去資料はNotionの研修DBにあります。15分悩んだら聞いてください。">
+  </div>
+
+  <div class="card">
+    <h2>🎁 できあがった依頼カード</h2>
+    <div class="out" id="out"></div>
+    <div class="btnrow">
+      <button class="btn btn-main" id="copyBtn">📋 コピーしてチャットに貼る</button>
+      <button class="btn btn-sub" id="resetBtn">🔄 リセット</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ パネル2:受け手チェックリスト ============ -->
+<div class="panel" id="p2">
+  <div class="card">
+    <h2>✅ 依頼を受けたら、着手前に確認</h2>
+    <p style="font-size:.85rem;color:var(--ink-soft);margin-bottom:10px;">
+      水準が示されていない依頼は「確認してから着手」が正解。聞くのは失礼ではなく、プロの所作です🐰
+    </p>
+    <div class="progress"><div id="pbar"></div></div>
+    <div class="pmsg" id="pmsg">0 / 6 確認済み</div>
+    <ul class="chk" id="chk">
+      <li><div class="box"></div><div class="t"><b>品質水準(L1〜L4)を確認した?</b><span>示されていなければ「これはL2のラフでいいですか?それともL3で仕上げますか?」と確認</span></div></li>
+      <li><div class="box"></div><div class="t"><b>完成イメージ・OKラインを確認した?</b><span>「何ができていれば合格か」を一文で言えるか</span></div></li>
+      <li><div class="box"></div><div class="t"><b>NGライン(地雷)を確認した?</b><span>絶対に避けるべきことが分かっているか</span></div></li>
+      <li><div class="box"></div><div class="t"><b>最終期限と中間確認のタイミングを確認した?</b><span>長めのタスクは中間確認を自分から提案する</span></div></li>
+      <li><div class="box"></div><div class="t"><b>かける時間の目安は水準と釣り合っている?</b><span>L1に3時間かけない。L4を30分で済ませない</span></div></li>
+      <li><div class="box"></div><div class="t"><b>詰まったときの相談ルールを確認した?</b><span>例:15分悩んだら相談。事実と所感を分けて報告</span></div></li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn btn-sub" id="chkReset">🔄 チェックをリセット</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ パネル3:早見表 ============ -->
+<div class="panel" id="p3">
+  <div class="card">
+    <h2>📖 品質水準 早見表(掲示用)</h2>
+    <div class="lv-detail show" style="margin-top:0">
+      <b>🍜 L1 まかない|ラフ・たたき台</b>
+      <ul><li>目的:方向性の確認。誤字・体裁くずれOK</li><li>目安時間:本気版の2〜3割</li><li>例:構成メモ、手書きラフ、箇条書き案</li></ul>
+    </div>
+    <div class="lv-detail show">
+      <b>🍥 L2 常連さん|チーム内共有レベル</b>
+      <ul><li>目的:講師間レビュー・内部検討に使える</li><li>体裁はおおむね整っている。細部のブレは許容</li><li>例:レビュー用スライド初稿、社内向け手順メモ</li></ul>
+    </div>
+    <div class="lv-detail show">
+      <b>🏮 L3 一見さん|受講生配布レベル</b>
+      <ul><li>目的:受講生の目に触れる。研修の品質そのもの</li><li>誤字ゼロ・体裁統一・動作確認済み</li><li>例:配布テキスト、演習解説、タイムテーブル</li></ul>
+    </div>
+    <div class="lv-detail show">
+      <b>📺 L4 取材対応|顧客・社外提出レベル</b>
+      <ul><li>目的:会社の看板を背負う成果物</li><li>セルフチェック+第三者ダブルチェック必須</li><li>例:顧客提出報告書、提案資料、公開教材</li></ul>
+    </div>
+    <p style="font-size:.82rem;color:var(--ink-soft);margin-top:10px;">
+      💡 運用のコツ:依頼側は <b>水準+理由</b> をセットで(「L2でOK、明日のレビューのたたき台だから」)。情報は理由とセットで共有する、が合言葉です。
+    </p>
+  </div>
+</div>
+
+<footer>
+  🐰 うさうさ研修工房 — <span class="motto">面白きこともなき世を面白く</span><br>
+  単一HTMLファイル・オフライン動作・AI不要
+</footer>
+</div>
+
+<div class="toast" id="toast">コピーしました🐰</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+
+/* ---- タブ ---- */
+var tabs=document.querySelectorAll(".tab");
+tabs.forEach(function(t){
+  t.addEventListener("click",function(){
+    tabs.forEach(function(x){x.classList.remove("active");});
+    t.classList.add("active");
+    document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("show");});
+    $(t.dataset.p).classList.add("show");
+  });
+});
+
+/* ---- 方向トグル ---- */
+var dirVal="メイン講師 → サブ講師";
+document.querySelectorAll("#dir button").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("#dir button").forEach(function(x){x.classList.remove("on");});
+    b.classList.add("on");dirVal=b.dataset.v;render();
+  });
+});
+
+/* ---- 水準 ---- */
+var LV={
+ 1:{name:"L1 まかない(ラフ・たたき台)",emoji:"🍜",
+    desc:"<b>🍜 L1 まかない</b>:方向性が伝わればOK。誤字・体裁くずれ許容。目安時間は本気版の2〜3割。<ul><li>受け手へ:時間をかけすぎないこと自体が品質です</li></ul>"},
+ 2:{name:"L2 常連さん(チーム内共有レベル)",emoji:"🍥",
+    desc:"<b>🍥 L2 常連さん</b>:講師間レビューに使えるレベル。体裁はおおむね整える。細部のブレは許容。<ul><li>受け手へ:完璧を目指さず、レビューで磨く前提で</li></ul>"},
+ 3:{name:"L3 一見さん(受講生配布レベル)",emoji:"🏮",
+    desc:"<b>🏮 L3 一見さん</b>:受講生の目に触れる成果物。誤字ゼロ・体裁統一・コードは動作確認済み。<ul><li>受け手へ:提出前セルフチェックを必ず実施</li></ul>"},
+ 4:{name:"L4 取材対応(顧客・社外提出レベル)",emoji:"📺",
+    desc:"<b>📺 L4 取材対応</b>:会社の看板を背負うレベル。セルフチェック+第三者ダブルチェック必須。<ul><li>受け手へ:チェック担当と日程も先に確保を</li></ul>"}
+};
+var lvVal=2;
+function showLvDetail(){
+  var d=$("lvDetail");d.innerHTML=LV[lvVal].desc;d.classList.add("show");
+}
+document.querySelectorAll(".lv").forEach(function(el){
+  el.addEventListener("click",function(){
+    document.querySelectorAll(".lv").forEach(function(x){x.classList.remove("on");});
+    el.classList.add("on");lvVal=+el.dataset.l;showLvDetail();render();
+  });
+});
+
+/* ---- 出力生成 ---- */
+function v(id){return $(id).value.trim();}
+function render(){
+  var L=LV[lvVal];
+  var lines=[];
+  lines.push("━━━━━━━━━━━━━━━━━━━━");
+  lines.push("📋【依頼カード】"+(v("title")||"(依頼タイトル)"));
+  lines.push("━━━━━━━━━━━━━━━━━━━━");
+  lines.push("◆ 依頼の流れ:"+dirVal);
+  if(v("detail"))lines.push("◆ 内容・背景:"+v("detail"));
+  lines.push("");
+  lines.push("◆ 品質水準:"+L.emoji+" "+L.name);
+  if(v("okline"))lines.push("  ・OKライン:"+v("okline"));
+  if(v("ngline"))lines.push("  ・NGライン:"+v("ngline"));
+  lines.push("");
+  lines.push("◆ 最終期限:"+(v("due")||"(期限を記入)"));
+  if(v("mid"))lines.push("◆ 中間確認:"+v("mid"));
+  if(v("note"))lines.push("◆ 補足・相談先:"+v("note"));
+  lines.push("");
+  lines.push("不明点や認識ズレがあれば、着手前に確認してください。");
+  $("out").textContent=lines.join("\n");
+}
+["title","detail","okline","ngline","due","mid","note"].forEach(function(id){
+  $(id).addEventListener("input",render);
+});
+
+/* ---- コピー ---- */
+function toast(msg){
+  var t=$("toast");t.textContent=msg;t.classList.add("show");
+  setTimeout(function(){t.classList.remove("show");},1800);
+}
+$("copyBtn").addEventListener("click",function(){
+  var txt=$("out").textContent;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){toast("コピーしました🐰");},function(){fallbackCopy(txt);});
+  }else{fallbackCopy(txt);}
+});
+function fallbackCopy(txt){
+  var ta=document.createElement("textarea");ta.value=txt;
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");toast("コピーしました🐰");}
+  catch(e){toast("コピーできませんでした…手動で選択してね");}
+  document.body.removeChild(ta);
+}
+$("resetBtn").addEventListener("click",function(){
+  ["title","detail","okline","ngline","due","mid","note"].forEach(function(id){$(id).value="";});
+  render();toast("リセットしました");
+});
+
+/* ---- チェックリスト ---- */
+var items=document.querySelectorAll("#chk li");
+function updateProg(){
+  var done=document.querySelectorAll("#chk li.done").length;
+  $("pbar").style.width=(done/items.length*100)+"%";
+  $("pmsg").textContent=done+" / "+items.length+" 確認済み"+(done===items.length?" — 着手OK!いってらっしゃい🐰✨":"");
+}
+items.forEach(function(li){
+  li.addEventListener("click",function(){
+    li.classList.toggle("done");
+    li.querySelector(".box").textContent=li.classList.contains("done")?"✓":"";
+    updateProg();
+  });
+});
+$("chkReset").addEventListener("click",function(){
+  items.forEach(function(li){li.classList.remove("done");li.querySelector(".box").textContent="";});
+  updateProg();
+});
+
+showLvDetail();render();updateProg();
+})();
+</script>
+</body>
+</html>
